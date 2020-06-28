@@ -1,0 +1,38 @@
+
+.PHONY: gogo pull build stop-services start-services truncate-logs
+gogo: stop-services pull build truncate-logs start-services
+
+pull:
+	git pull origin master
+
+build:
+	go build -o ./go/app ./go/...
+
+stop-services:
+	sudo service httpd stop
+	sudo supervisorctl stop isucon_go
+	sudo service mysql stop
+
+start-services:
+	sudo service mysql start
+	sudo supervisorctl start isucon_go
+	sudo service httpd stop
+
+
+truncate-logs:
+	sudo rm -f /var/log/httpd/*
+
+
+# 開発用
+.PHONY: up down mysql
+up:
+	docker-compose up -d --build
+
+down:
+	docker-compose down
+
+logs:
+	docker-compose logs -f
+
+mysql:
+	docker-compose exec db mysql -u root
