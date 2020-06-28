@@ -37,6 +37,9 @@ up:
 down:
 	docker-compose down
 
+exec:
+	docker-compose run --rm app sh
+
 logs:
 	docker-compose logs -f
 
