@@ -252,8 +252,8 @@ func topHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	memos := make(Memos, 0)
-	stmtUser, err := dbConn.Prepare("SELECT username FROM users WHERE id=?")
-	defer stmtUser.Close()
+	//stmtUser, err := dbConn.Prepare("SELECT username FROM users WHERE id=?")
+	//defer stmtUser.Close()
 	if err != nil {
 		serverError(w, err)
 		return
@@ -261,7 +261,7 @@ func topHandler(w http.ResponseWriter, r *http.Request) {
 	for rows.Next() {
 		memo := Memo{}
 		rows.Scan(&memo.Id, &memo.User, &memo.Content, &memo.IsPrivate, &memo.CreatedAt, &memo.UpdatedAt)
-		stmtUser.QueryRow(memo.User).Scan(&memo.Username)
+		//stmtUser.QueryRow(memo.User).Scan(&memo.Username)
 		memos = append(memos, &memo)
 	}
 	rows.Close()
@@ -312,8 +312,8 @@ func recentHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	memos := make(Memos, 0)
-	stmtUser, err := dbConn.Prepare("SELECT username FROM users WHERE id=?")
-	defer stmtUser.Close()
+	//stmtUser, err := dbConn.Prepare("SELECT username FROM users WHERE id=?")
+	//defer stmtUser.Close()
 	if err != nil {
 		serverError(w, err)
 		return
@@ -321,7 +321,7 @@ func recentHandler(w http.ResponseWriter, r *http.Request) {
 	for rows.Next() {
 		memo := Memo{}
 		rows.Scan(&memo.Id, &memo.User, &memo.Content, &memo.IsPrivate, &memo.CreatedAt, &memo.UpdatedAt)
-		stmtUser.QueryRow(memo.User).Scan(&memo.Username)
+		//stmtUser.QueryRow(memo.User).Scan(&memo.Username)
 		memos = append(memos, &memo)
 	}
 	if len(memos) == 0 {
