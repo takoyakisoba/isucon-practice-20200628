@@ -20,7 +20,7 @@ stop-services:
 start-services:
 	sudo service mysql start
 	sudo supervisorctl start isucon_go
-	sudo service httpd stop
+	sudo service httpd start
 
 
 truncate-logs:
