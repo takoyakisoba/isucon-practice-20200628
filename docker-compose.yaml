@@ -15,7 +15,7 @@ services:
         build:
             context: ./
             dockerfile: Dockerfile_go
-        command: "make -C /go/src/isucon/webapp/go setup build run"
+        command: "go run go/app.go"
         volumes:
           - "$PWD:/go/src/isucon"
         environment:
