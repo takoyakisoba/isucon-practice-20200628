@@ -13,21 +13,22 @@ run:
 	cd ./go && ./app
 
 stop-services:
-	sudo service httpd stop
+	sudo service nginx stop
 	sudo supervisorctl stop isucon_go
 	sudo service mysql stop
 
 start-services:
 	sudo service mysql start
 	sudo supervisorctl start isucon_go
-	sudo service httpd start
+	sudo service nginx start
 
 truncate-logs:
-	sudo rm -f /var/log/httpd/*
+	sudo truncate --size 0 /var/log/nginx/access.log
+	sudo truncate --size 0 /var/log/nginx/error.log
 	sudo truncate --size 0 /tmp/isucon.go.log
 
 kataribe:
-	cd ~/work/kataribe_work && cat /var/log/httpd/access_log | ./kataribe
+	cd ~/work/kataribe_work && sudo cat /var/log/nginx/access.log | ./kataribe
 
 benchmark:
 	sudo ~/qualifier_bench/qualifier_bench benchmark --init ~/webapp/init/init.sh --workload 1
