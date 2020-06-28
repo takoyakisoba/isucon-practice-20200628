@@ -173,7 +173,12 @@ func prepareHandler(w http.ResponseWriter, r *http.Request) {
 
 func loadSession(w http.ResponseWriter, r *http.Request) (session *sessions.Session, err error) {
 	store := sessions.NewFilesystemStore("/tmp", []byte(sessionSecret))
-	return store.Get(r, sessionName)
+	s, err := store.Get(r, sessionName)
+	if err != nil {
+		return store.New(r,"app")
+	}
+
+	return s, nil
 }
 
 func getUser(w http.ResponseWriter, r *http.Request, dbConn *sql.DB, session *sessions.Session) *User {
