@@ -24,6 +24,7 @@ start-services:
 
 truncate-logs:
 	sudo rm -f /var/log/httpd/*
+	sudo truncate --size 0 /tmp/isucon.go.log
 
 kataribe:
 	cd ~/work/kataribe_work && cat /var/log/httpd/access_log | ./kataribe
