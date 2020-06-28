@@ -307,7 +307,7 @@ func recentHandler(w http.ResponseWriter, r *http.Request) {
 	rows.Close()
 
 	// 必要な情報だけ取得
-	rows, err = dbConn.Query("SELECT id, user, content, is_private, crated_ad, updated_at FROM memos WHERE is_private=0 ORDER BY created_at DESC LIMIT ? OFFSET ?", memosPerPage, memosPerPage*page)
+	rows, err = dbConn.Query("SELECT id, user, content, is_private, crated_at, updated_at FROM memos WHERE is_private=0 ORDER BY created_at DESC LIMIT ? OFFSET ?", memosPerPage, memosPerPage*page)
 	if err != nil {
 		serverError(w, err)
 		return
