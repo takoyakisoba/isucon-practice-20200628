@@ -28,6 +28,8 @@ truncate-logs:
 kataribe:
 	cd ~/work/kataribe_work && cat /var/log/httpd/access_log | ./kataribe
 
+benchmark:
+	sudo ~/qualifier_bench benchmark --init ~/webapp/init/init.sh --workload 1
 
 # 開発用
 .PHONY: up down mysql
