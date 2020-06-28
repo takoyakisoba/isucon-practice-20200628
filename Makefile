@@ -6,7 +6,11 @@ pull:
 	git pull origin master
 
 build:
-	go build -o ./go/app ./go/...
+	make -C go setup
+	cd ./go && go build -o ./app app.go
+
+run:
+	cd ./go && ./app
 
 stop-services:
 	sudo service httpd stop

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"./sessions"
+	"github.com/gorilla/sessions"
 	"crypto/sha256"
 	"database/sql"
 	"encoding/json"
@@ -22,14 +22,12 @@ import (
 )
 
 const (
-	maxConnectionCount = 256
 	memosPerPage       = 100
 	listenAddr         = ":5000"
 	sessionName        = "isucon_session"
 	tmpDir             = "/tmp/"
 	markdownCommand    = "../bin/markdown"
 	dbConnPoolSize     = 10
-	memcachedServer    = "localhost:11211"
 	sessionSecret      = "kH<{11qpic*gf0e21YK7YtwyUvE9l<1r>yX8R-Op"
 )
 
@@ -174,7 +172,7 @@ func prepareHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func loadSession(w http.ResponseWriter, r *http.Request) (session *sessions.Session, err error) {
-	store := sessions.NewMemcacheStore(memcachedServer, []byte(sessionSecret))
+	store := sessions.NewFilesystemStore("/tmp", []byte(sessionSecret))
 	return store.Get(r, sessionName)
 }
 
