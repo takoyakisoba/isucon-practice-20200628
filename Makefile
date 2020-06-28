@@ -1,5 +1,5 @@
 
-.PHONY: gogo pull build stop-services start-services truncate-logs
+.PHONY: gogo pull build stop-services start-services truncate-logs kataribe
 gogo: stop-services pull build truncate-logs start-services
 
 pull:
@@ -22,9 +22,11 @@ start-services:
 	sudo supervisorctl start isucon_go
 	sudo service httpd start
 
-
 truncate-logs:
 	sudo rm -f /var/log/httpd/*
+
+kataribe:
+	cd ~/work/kataribe_work && cat /var/log/httpd/access_log | ./kataribe
 
 
 # 開発用
