@@ -20,6 +20,7 @@ import (
 	"strconv"
 	"strings"
 )
+import _ "net/http/pprof"
 
 const (
 	memosPerPage       = 100
@@ -174,7 +175,7 @@ func loadSession(w http.ResponseWriter, r *http.Request) (session *sessions.Sess
 	store := sessions.NewFilesystemStore("/tmp", []byte(sessionSecret))
 	s, err := store.Get(r, sessionName)
 	if err != nil {
-		return store.New(r,"app")
+		return store.New(r,sessionName)
 	}
 
 	return s, nil
